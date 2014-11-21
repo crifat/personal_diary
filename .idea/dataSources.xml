@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1517737490">
+    <data-source source="LOCAL" name="Rails personal_diary: development" uuid="b846c7fe-0171-4435-b26f-11f0b6129665">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:personal_diary_development</jdbc-url>
+      <user-name>nigh7m4r3</user-name>
+      <user-password>df9bdf98df99df9e</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails personal_diary: test" uuid="2a603d32-ea89-4818-b058-c02b15ca296e">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:personal_diary_test</jdbc-url>
+      <user-name>nigh7m4r3</user-name>
+      <user-password>df9bdf98df99df9e</user-password>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails personal_diary: production" uuid="30e9f5a4-5b87-4a40-9430-8779af94f742">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:personal_diary_production</jdbc-url>
+      <user-name>personal_diary</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddffadfefdff8dff9dfe5dfe4dfebdfe6dff5dfeedfe3dfebdff8dff3dff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
