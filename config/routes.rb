@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  match 'users', to: 'users#create', via: [:options]
+  get 'users', to: 'users#show', via: [:options]
+  match 'posts', to: 'posts#create', via: [:options]
+  match 'posts', to: 'posts#index', via: [:options]
+  match 'posts', to: 'posts#show', via: [:options]
+
   resources :posts
   resources :users
 
