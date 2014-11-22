@@ -27,7 +27,14 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    # @posts = Post.all
+    @user_of_the_post = User.find_by_username_and_password(params[:username], params[:password])
+    if @user_of_the_post.nil?
+      render json: {success: 0}
+    else
+      @posts = Post.where(user_id: @user_of_the_post.id).order('created_at desc')
+      render json: {success: 1, posts: @posts}
+    end
   end
 
   # GET /posts/1
