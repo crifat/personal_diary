@@ -47,17 +47,32 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
-
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+    #@post = Post.new(post_params)
+    @user_of_the_post = User.find_by_username_and_password(params[:username], params[:password])
+    if @user_of_the_post.nil?
+      render json: {success: 0}
+    else
+      @post = Post.new(title: params[:title], body: params[:body], user_id: @user_of_the_post.id)
+      respond_to do |format|
+        if @post.save
+          format.html { redirect_to @post, notice: 'Post was successfully created.' }
+          format.json { render json: {success: 1, post_id: @post.id, title: @post.title, body: @post.body}, date: @post.created_at }
+        else
+          format.html { render :new }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
       end
     end
+
+    # respond_to do |format|
+    #   if @post.save
+    #     format.html { redirect_to @post, notice: 'Post was successfully created.' }
+    #     format.json { render :show, status: :created, location: @post }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @post.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /posts/1
