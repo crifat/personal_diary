@@ -31,6 +31,9 @@ class PostsController < ApplicationController
     @user_of_the_post = User.find_by_username_and_password(params[:username], params[:password])
     if @user_of_the_post.nil?
       render json: {success: 0}
+    elsif params[:date].present?
+      @posts = Post.where(user_id: @user_of_the_post.id, date: params[:date]).order('created_at desc')
+      render json: {success: 1, posts: @posts}
     else
       @posts = Post.where(user_id: @user_of_the_post.id).order('created_at desc')
       render json: {success: 1, posts: @posts}
@@ -59,11 +62,11 @@ class PostsController < ApplicationController
     if @user_of_the_post.nil?
       render json: {success: 0}
     else
-      @post = Post.new(title: params[:title], body: params[:body], user_id: @user_of_the_post.id)
+      @post = Post.new(title: params[:title], body: params[:body], user_id: @user_of_the_post.id, date: params[:date])
       respond_to do |format|
         if @post.save
           format.html { redirect_to @post, notice: 'Post was successfully created.' }
-          format.json { render json: {success: 1, post_id: @post.id, title: @post.title, body: @post.body}, date: @post.created_at }
+          format.json { render json: {success: 1, post_id: @post.id, title: @post.title, body: @post.body, date: @post.date} }
         else
           format.html { render :new }
           format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -114,6 +117,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :title, :body, :latitude, :longitude, :published, :username, :password)
+      params.require(:post).permit(:user_id, :title, :body, :latitude, :longitude, :published, :username, :password, :date)
     end
 end
