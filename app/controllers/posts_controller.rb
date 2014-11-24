@@ -43,6 +43,15 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    respond_to do |format|
+      if @post.update(title: params[:title], date: params[:date], body: params[:body])
+        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.json { render json: {success: 1} }
+      else
+        format.html { render :edit }
+        format.json { render json: {success: 0} }
+      end
+    end
   end
 
   # GET /posts/new
@@ -88,13 +97,16 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+
+
+
     respond_to do |format|
-      if @post.update(post_params)
+      if @post.update(title: params[:title], date: params[:date], body: params[:body])
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
+        format.json { render json: {success: 1} }
       else
         format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.json { render json: {success: 0} }
       end
     end
   end
