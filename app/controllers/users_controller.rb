@@ -32,6 +32,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+
     if params[:username].present?
       @login_user = User.find_by_username_and_password(params[:username], params[:password])
     end

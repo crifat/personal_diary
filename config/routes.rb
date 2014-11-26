@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   match 'posts', to: 'posts#index', via: [:options]
   match 'posts', to: 'posts#show', via: [:options]
   match 'posts', to: 'posts#update', via: [:options]
+  match 'posts', to: 'posts#destroy', via: [:delete]
 
   resources :posts
   resources :users

@@ -43,13 +43,26 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    respond_to do |format|
-      if @post.update(title: params[:title], date: params[:date], body: params[:body])
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render json: {success: 1} }
+    if params[:delete].present?
+      user = User.find_by_username_and_password(params[:username], params[:password])
+      if user.nil?
+        render json: { success: 0 }
       else
-        format.html { render :edit }
-        format.json { render json: {success: 0} }
+        if @post.destroy
+          render json: {success: 1}
+        else
+          render json: {success: 0}
+        end
+      end
+    else
+      respond_to do |format|
+        if @post.update(title: params[:title], date: params[:date], body: params[:body])
+          format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+          format.json { render json: {success: 1} }
+        else
+          format.html { render :edit }
+          format.json { render json: {success: 0} }
+        end
       end
     end
   end
@@ -117,7 +130,7 @@ class PostsController < ApplicationController
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { render json: { success: 1 } }
     end
   end
 
